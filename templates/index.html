@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electricity Price Prediction</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    
+    <style>
+        body {
+            background: linear-gradient(135deg, #003366, #000000);
+            color: white;
+        }
+        .navbar {
+            background-color: #003366;
+        }
+        .navbar-brand {
+            font-weight: bold;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .form-section {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .btn-primary {
+            background-color: #0066cc;
+            border-color: #0066cc;
+        }
+        .btn-primary:hover {
+            background-color: #004080;
+            border-color: #004080;
+        }
+        .image-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .powerhouse-img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 10px;
+            background-color: #003366;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="#">Electricity Predictor</a>
+    </nav>
+
+    <!-- Main container -->
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 form-section">
+                <h2>Predict Your Electricity Price</h2>
+                <form method="POST" action="/">
+                    <div class="form-group">
+                        <label for="forecast_wind">Forecast Wind (MW)</label>
+                        <input type="number" class="form-control" id="forecast_wind" name="forecast_wind" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="system_load_ea">System Load EA (MW)</label>
+                        <input type="number" class="form-control" id="system_load_ea" name="system_load_ea" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="temperature">Temperature (°C)</label>
+                        <input type="number" class="form-control" id="temperature" name="temperature" step="0.1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="windspeed">Wind Speed (m/s)</label>
+                        <input type="number" class="form-control" id="windspeed" name="windspeed" step="0.1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="co2_intensity">CO2 Intensity (gCO2/kWh)</label>
+                        <input type="number" class="form-control" id="co2_intensity" name="co2_intensity" step="0.1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="actual_wind">Actual Wind (MW)</label>
+                        <input type="number" class="form-control" id="actual_wind" name="actual_wind" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="system_load_ep2">System Load EP2 (MW)</label>
+                        <input type="number" class="form-control" id="system_load_ep2" name="system_load_ep2" step="0.01" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Predict</button>
+                </form>
+
+                <!-- Display prediction -->
+                {% if prediction_usd and prediction_inr %}
+                <div class="alert alert-success mt-3">
+                    <strong>Prediction (USD):</strong> ${{ prediction_usd }}<br>
+                    <strong>Prediction (INR):</strong> ₹{{ prediction_inr }}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        
+        <!-- Image Section with online image -->
+        <div class="image-container">
+            <img src="https://image.made-in-china.com/43f34j00fkIYtpndCsqc/Power-Plant-Power-Station-Powerhouse-Electric-Substation-Steel-Structure.webp" 
+                 alt="Electricity Powerhouse" class="powerhouse-img">
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Electricity Price Predictor. All rights reserved.</p>
+    </footer>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
